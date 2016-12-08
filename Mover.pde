@@ -64,7 +64,7 @@ class Mover
     rectMode(CENTER);
     stroke(0);
     fill(bodyColor, lifespan);
-    rect(0, 0, mass * 20, mass * 20);
+    rect(0, 0, mass * 25, mass * 25);
     popMatrix();
   }
   

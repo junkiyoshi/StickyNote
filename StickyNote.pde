@@ -1,17 +1,23 @@
+import de.voidplus.leapmotion.*;
 import java.util.*;
 
 ArrayList<Mover> movers;
+LeapMotion leap;
+
 PVector preMousePosition;
+PVector preFingerPosition;
 
 float xnoise;
 float ynoise;
 
 void setup()
 {
-  size(1980, 1080);
+  fullScreen();
   frameRate(30);
   movers = new ArrayList<Mover>();
+  leap = new LeapMotion(this);
   preMousePosition = new PVector(mouseX, mouseY);
+  preFingerPosition = new PVector(width / 2, height / 2);
   
   xnoise = random(10);
   ynoise = random(10);
@@ -31,6 +37,20 @@ void draw()
   xnoise += 0.05;
   ynoise += 0.05;
   
+  for(Hand hand : leap.getHands())
+  {
+    Finger finger = hand.getIndexFinger();
+    PVector FingerForce = PVector.sub(finger.getPosition(), preFingerPosition);
+    //FingerForce.normalize();
+    
+    for(Mover m : movers)
+    {
+      m.appyForce(FingerForce);
+    } 
+    
+    preFingerPosition = finger.getPosition().copy();
+  }
+  
   Iterator<Mover> it = movers.iterator();
   while(it.hasNext())
   {
@@ -45,14 +65,7 @@ void draw()
   
   stroke(0);
   fill(255);
-  rect(width / 2, height / 2, 100, 100);
-  
-  println(frameCount);
-  saveFrame("screen-#####.png");  
-  if(frameCount > 1800)
-  {
-    exit();
-  }
+  rect(width / 2, height / 2, 125, 125);
 }
 
 void mouseMoved()
@@ -60,11 +73,7 @@ void mouseMoved()
   PVector MousePosition = new PVector(mouseX, mouseY);
   PVector MouseForce = PVector.sub(MousePosition, preMousePosition);
   MouseForce.normalize();
-  
-  pushMatrix();
-  translate(width / 2, height / 2);
-  popMatrix();
-  
+    
   for(Mover m : movers)
   {
     m.appyForce(MouseForce);
