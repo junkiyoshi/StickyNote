@@ -8,7 +8,7 @@ float ynoise;
 
 void setup()
 {
-  fullScreen();
+  size(1980, 1080);
   frameRate(30);
   blendMode(ADD);
   movers = new ArrayList<Mover>();
@@ -49,6 +49,13 @@ void draw()
   fill(0);
   rect(width / 2, height / 2, 100, 100);
   */
+  
+  println(frameCount);
+  //saveFrame("screen-#####.png");  
+  if(frameCount > 1800)
+  {
+    exit();
+  }
 }
 
 void mouseMoved()
