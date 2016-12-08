@@ -8,7 +8,7 @@ float ynoise;
 
 void setup()
 {
-  fullScreen();
+  size(1980, 1080);
   frameRate(30);
   movers = new ArrayList<Mover>();
   preMousePosition = new PVector(mouseX, mouseY);
@@ -46,6 +46,13 @@ void draw()
   stroke(0);
   fill(255);
   rect(width / 2, height / 2, 100, 100);
+  
+  println(frameCount);
+  saveFrame("screen-#####.png");  
+  if(frameCount > 1800)
+  {
+    exit();
+  }
 }
 
 void mouseMoved()
