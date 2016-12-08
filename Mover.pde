@@ -24,7 +24,7 @@ class Mover
     
     mass = 5;
     lifespan = 255;
-    bodyColor = color(random(128, 255), random(128, 255), random(128, 255));
+    bodyColor = color(random(64), random(64), random(64));
   }
   
   void run()
@@ -62,9 +62,9 @@ class Mover
     translate(location.x, location.y);
     rotate(radians(angle));
     rectMode(CENTER);
-    stroke(0);
-    fill(bodyColor, lifespan);
-    rect(0, 0, mass * 20, mass * 20);
+    // stroke(255);
+    fill(bodyColor, lifespan * 2);
+    ellipse(0, 0, mass * 20, mass * 20);
     popMatrix();
   }
   

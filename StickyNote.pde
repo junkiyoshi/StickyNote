@@ -10,6 +10,7 @@ void setup()
 {
   fullScreen();
   frameRate(30);
+  blendMode(ADD);
   movers = new ArrayList<Mover>();
   preMousePosition = new PVector(mouseX, mouseY);
   
@@ -19,10 +20,10 @@ void setup()
 
 void draw()
 {
-  background(255);  
+  background(0);  
   movers.add(new Mover(new PVector(width / 2, height / 2)));
   
-  PVector NoiseForce = new PVector(map(noise(xnoise), 0, 1, -2, 2), map(noise(ynoise), 0, 1, -2, 2));
+  PVector NoiseForce = new PVector(map(noise(xnoise), 0, 1, -5, 5), map(noise(ynoise), 0, 1, -5, 5));
   for(Mover m : movers)
   {
     m.appyForce(NoiseForce);
@@ -43,9 +44,11 @@ void draw()
     }
   }
   
-  stroke(0);
-  fill(255);
+  /*
+  stroke(255);
+  fill(0);
   rect(width / 2, height / 2, 100, 100);
+  */
 }
 
 void mouseMoved()
